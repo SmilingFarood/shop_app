@@ -12,6 +12,7 @@ import 'package:shopapp/providers/products.dart';
 import 'package:provider/provider.dart';
 import 'package:shopapp/screens/splash_screen.dart';
 import 'package:shopapp/screens/user_products_screen.dart';
+import 'helpers/custom_route.dart';
 
 void main() => runApp(MyApp());
 
@@ -48,10 +49,15 @@ class MyApp extends StatelessWidget {
         builder: (ctx, auth, _) => MaterialApp(
           title: 'My Shop',
           theme: ThemeData(
-            primarySwatch: Colors.purple,
-            accentColor: Colors.deepOrange,
-            fontFamily: 'Lato',
-          ),
+              primarySwatch: Colors.purple,
+              accentColor: Colors.deepOrange,
+              fontFamily: 'Lato',
+              pageTransitionsTheme: PageTransitionsTheme(
+                builders: {
+                  TargetPlatform.android: CustomPageTransitionBuilder(),
+                  TargetPlatform.iOS: CustomPageTransitionBuilder(),
+                },
+              )),
           home: auth.isAuth
               ? ProductOverviewScreen()
               : FutureBuilder(
